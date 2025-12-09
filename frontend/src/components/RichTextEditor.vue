@@ -112,7 +112,7 @@ const response = await axios.post(`${API_BASE}/api/upload`, formData, {
           // Insert image to editor
           const quill = this.$refs.quillEditor.getQuill()
           const range = quill.getSelection(true)
-          const imageUrl = `http://localhost:5000${response.data.image}`
+          const imageUrl = `${API_BASE}${response.data.image}`
           quill.insertEmbed(range.index, 'image', imageUrl)
           quill.setSelection(range.index + 1)
         } catch (error) {
