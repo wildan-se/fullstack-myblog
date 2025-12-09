@@ -10,8 +10,8 @@ const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   skipSuccessfulRequests: true, // Don't count successful requests
-  trustProxy: true, // Trust proxy headers (Railway, Heroku, etc.)
-  validate: { trustProxy: false }, // Disable validation that causes error
+  // Disable ALL validations for Railway compatibility
+  validate: false,
 });
 
 // General API - moderate limit
@@ -23,8 +23,8 @@ const apiLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  trustProxy: true, // Trust proxy headers (Railway, Heroku, etc.)
-  validate: { trustProxy: false }, // Disable validation that causes error
+  // Disable ALL validations for Railway compatibility
+  validate: false,
 });
 
 // Upload endpoints - very strict
@@ -34,8 +34,8 @@ const uploadLimiter = rateLimit({
   message: {
     error: 'Terlalu banyak upload. Silakan coba lagi dalam 1 jam.'
   },
-  trustProxy: true, // Trust proxy headers (Railway, Heroku, etc.)
-  validate: { trustProxy: false }, // Disable validation that causes error
+  // Disable ALL validations for Railway compatibility
+  validate: false,
 });
 
 module.exports = { authLimiter, apiLimiter, uploadLimiter };
