@@ -343,14 +343,14 @@ SAVE THIS URL!
 
 ### **Test 1: Frontend Loading:**
 ```
-1. Open: https://myblog-app.netlify.app
+1. Open: https://fullstack-myblog-app.netlify.app
 2. Should see your blog homepage
 3. Check browser console (F12) for errors
 ```
 
 ### **Test 2: Backend API:**
 ```
-1. Open: https://myblog-production.up.railway.app/health
+1. Open: https://fullstack-myblog-production.up.railway.app/health
 2. Should see: {"status":"OK",...}
 ```
 
