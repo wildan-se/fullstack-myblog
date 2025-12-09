@@ -101,7 +101,8 @@ export default {
           formData.append('image', file)
 
           const token = JSON.parse(localStorage.getItem('user'))?.token
-          const response = await axios.post('http://localhost:5000/api/upload', formData, {
+         const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
+const response = await axios.post(`${API_BASE}/api/upload`, formData, { 
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${token}`,

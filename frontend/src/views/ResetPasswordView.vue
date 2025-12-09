@@ -303,8 +303,16 @@ export default {
       this.successMessage = ''
 
       try {
+        const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
         const token = this.$route.params.token
-        const response = await axios.put(`http://localhost:5000/api/auth/reset-password/${token}`, {
+
+        if (!token) {
+          this.errorMessage = 'Token reset password tidak valid atau sudah kedaluwarsa'
+          this.loading = false
+          return
+        }
+
+        const response = await axios.put(`${API_BASE}/api/auth/reset-password/${token}`, {
           password: this.password,
         })
 
