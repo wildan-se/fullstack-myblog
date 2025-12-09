@@ -18,8 +18,15 @@ export default defineConfig({
   server: {
     // Fix untuk mencegah reload berlebihan
     watch: {
-      // Ignore .env files dari watch untuk mencegah reload loop
-      ignored: ['**/.env', '**/.env.local'],
+      // Ignore files yang tidak perlu trigger reload
+      ignored: [
+        '**/.env',
+        '**/.env.*',
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/dist/**',
+        '**/nul'
+      ],
     },
     hmr: {
       // Konfigurasi HMR agar lebih stabil
