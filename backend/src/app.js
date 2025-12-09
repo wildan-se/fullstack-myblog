@@ -71,7 +71,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Rate Limiting for API routes
-app.use('/api/', apiLimiter);
+// Disabled in production due to Railway proxy issues
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api/', apiLimiter);
+  console.log('[Security] Rate limiting enabled for development');
+} else {
+  console.log('[Security] Rate limiting disabled for production (Railway compatibility)');
+}
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
