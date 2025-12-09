@@ -326,17 +326,38 @@ const forgotPassword = asyncHandler(async (req, res) => {
     if (isEmailConfigured) {
       // Production mode: Send actual email
       console.log("📤 Attempting to send email to:", user.email);
-      await sendEmail({
-        email: user.email,
-        subject: "Reset Password - My Blog",
-        html,
-      });
+      try {
+        await sendEmail({
+          email: user.email,
+          subject: "Reset Password - My Blog",
+          html,
+        });
 
-      console.log("✅ Email sent successfully!");
-      res.status(200).json({
-        success: true,
-        message: "Email reset password telah dikirim. Silakan cek inbox Anda.",
-      });
+        console.log("✅ Email sent successfully!");
+        res.status(200).json({
+          success: true,
+          message: "Email reset password telah dikirim. Silakan cek inbox Anda.",
+        });
+      } catch (emailError) {
+        console.error("❌ Failed to send email:", emailError);
+        console.error("Email error details:", emailError.message);
+        
+        // Fallback to development mode if email fails
+        console.log("=".repeat(80));
+        console.log("⚠️  EMAIL SENDING FAILED - Falling back to dev mode");
+        console.log("=".repeat(80));
+        console.log(`Reset Password URL for ${user.email}:`);
+        console.log(resetUrl);
+        console.log("=".repeat(80));
+        
+        res.status(200).json({
+          success: true,
+          message:
+            "Link reset password telah dibuat. Silakan hubungi administrator untuk mendapatkan link.",
+          resetUrl: resetUrl, // Include URL when email fails
+          devMode: true,
+        });
+      }
     } else {
       // Development mode: Return reset URL in response
       console.log("=".repeat(80));
