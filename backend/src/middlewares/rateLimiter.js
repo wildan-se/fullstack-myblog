@@ -1,4 +1,5 @@
 const rateLimit = require('express-rate-limit');
+// Last updated: 2025-12-09 22:23
 
 // Auth endpoints - strict limit
 const authLimiter = rateLimit({
