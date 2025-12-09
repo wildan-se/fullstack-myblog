@@ -3,12 +3,13 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 package-lock.json
 
 # Environment files
 .env
-.env.local
-.env.production
+.env.*
+!.env.example
 ENV_SECRETS.txt
 
 # Uploads
@@ -18,6 +19,10 @@ uploads/*
 # OS files
 .DS_Store
 Thumbs.db
+Desktop.ini
+*.tmp
+*.temp
+nul
 
 # IDE
 .vscode/
@@ -29,3 +34,15 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Cache
+.cache/
+
+# Testing
+coverage/
+.nyc_output
+
+# Misc
+*.seed
+*.pid
+*.pid.lock
