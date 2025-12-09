@@ -14,8 +14,9 @@ const app = express();
 
 // Trust proxy - Required for Railway, Heroku, etc.
 // This allows Express to trust the X-Forwarded-* headers
-// Deployed: 2025-12-09
+// Deployed: 2025-12-09 (Version 1.0.1)
 app.set('trust proxy', 1);
+console.log(`[Config] Trust Proxy set to: ${app.get('trust proxy')}`);
 
 // Security: Disable x-powered-by header
 app.disable('x-powered-by');
