@@ -472,7 +472,7 @@ export default {
 
     handleImageError(event) {
       // Sets default image if the provided image fails to load.
-      event.target.src = '/uploads/default-post.jpg'
+      event.target.src = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
     },
   },
 }

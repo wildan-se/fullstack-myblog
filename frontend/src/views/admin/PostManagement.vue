@@ -564,7 +564,7 @@ export default {
     },
 
     handleImageError(event) {
-      event.target.src = '/uploads/default-post.jpg'
+      event.target.src = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
     },
 
     formatNumber(num) {

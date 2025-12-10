@@ -4,6 +4,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000
 const API_URL = `${API_BASE_URL}/api/posts/`
 const UPLOAD_BASE_URL = API_BASE_URL // Base URL untuk file yang diupload
 const UPLOAD_API_ENDPOINT = `${UPLOAD_BASE_URL}/api/upload/` // URL lengkap untuk endpoint upload
+// Default image menggunakan placeholder eksternal
+const DEFAULT_POST_IMAGE = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
 
 const state = {
   posts: [],
@@ -30,7 +32,7 @@ const mutations = {
     // Memastikan URL gambar diubah menjadi absolut saat diterima
     state.posts = data.posts.map((post) => ({
       ...post,
-      image: post.image ? `${UPLOAD_BASE_URL}${post.image}` : '/uploads/default-post.jpg',
+      image: post.image ? `${UPLOAD_BASE_URL}${post.image}` : DEFAULT_POST_IMAGE,
     }))
     state.pagination.page = data.page
     state.pagination.pages = data.pages
@@ -41,7 +43,7 @@ const mutations = {
     // Memastikan URL gambar diubah menjadi absolut saat diterima
     state.currentPost = {
       ...post,
-      image: post.image ? `${UPLOAD_BASE_URL}${post.image}` : '/uploads/default-post.jpg',
+      image: post.image ? `${UPLOAD_BASE_URL}${post.image}` : DEFAULT_POST_IMAGE,
     }
     state.loading = false
   },
@@ -53,7 +55,7 @@ const mutations = {
     // Memastikan URL gambar diubah menjadi absolut saat ditambahkan
     state.posts.unshift({
       ...post,
-      image: post.image ? `${UPLOAD_BASE_URL}${post.image}` : '/uploads/default-post.jpg',
+      image: post.image ? `${UPLOAD_BASE_URL}${post.image}` : DEFAULT_POST_IMAGE,
     })
     state.loading = false
   },
@@ -65,7 +67,7 @@ const mutations = {
         ...updatedPost,
         image: updatedPost.image
           ? `${UPLOAD_BASE_URL}${updatedPost.image}`
-          : '/uploads/default-post.jpg',
+          : DEFAULT_POST_IMAGE,
       })
     }
     state.loading = false

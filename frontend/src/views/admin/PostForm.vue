@@ -83,7 +83,7 @@
           </button>
         </div>
         <div
-          v-else-if="post.image && post.image !== '/uploads/default-post.jpg' && !selectedFile"
+          v-else-if="post.image && !post.image.includes('placeholder.com') && !selectedFile"
           class="mt-3 sm:mt-4"
         >
           <p class="mb-2 text-xs font-medium text-gray-700 sm:text-sm">Gambar Saat Ini:</p>
@@ -378,8 +378,8 @@ export default {
       } else {
         this.selectedFile = null
         this.imagePreviewUrl = null
-        if (!this.post.image || this.post.image === '/uploads/default-post.jpg') {
-          this.post.image = '/uploads/default-post.jpg'
+        if (!this.post.image || this.post.image.includes('placeholder.com')) {
+          this.post.image = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
         }
       }
     },
@@ -387,7 +387,7 @@ export default {
     removeImage() {
       this.selectedFile = null
       this.imagePreviewUrl = null
-      this.post.image = '/uploads/default-post.jpg'
+      this.post.image = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
       const fileInput = document.getElementById('imageUpload')
       if (fileInput) {
         fileInput.value = ''
@@ -445,8 +445,8 @@ export default {
         if (this.selectedFile) {
           const uploadedImagePath = await this.uploadImage(this.selectedFile)
           this.post.image = uploadedImagePath
-        } else if (!this.post.image || this.post.image.includes('default-post.jpg')) {
-          this.post.image = '/uploads/default-post.jpg'
+        } else if (!this.post.image || this.post.image.includes('placeholder.com')) {
+          this.post.image = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
         }
 
         if (this.isEditing) {

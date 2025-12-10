@@ -87,7 +87,7 @@
       >
         <div class="w-full h-56 overflow-hidden bg-gray-200">
           <img
-            :src="post.image || '/uploads/default-post.jpg'"
+            :src="post.image || 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'"
             :alt="post.title"
             class="object-cover w-full h-full transition-transform duration-300 ease-in-out group-hover:scale-110"
             @error="handleImageError"
@@ -275,11 +275,8 @@ export default {
     // handleImageError(event): Metode untuk menangani error saat gambar gagal dimuat.
     // event: Objek event yang dipicu saat error (misal, dari atribut @error pada tag <img>).
     handleImageError(event) {
-      // Fallback for broken images
-      // event.target: Merujuk pada elemen DOM yang memicu event (yaitu, tag <img>).
-      // event.target.src = '/uploads/default-post.jpg': Mengubah atribut `src` dari gambar yang rusak
-      //                                                   menjadi URL gambar placeholder default.
-      event.target.src = '/uploads/default-post.jpg'
+      // Sets default image if the provided image fails to load.
+      event.target.src = 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=No+Image'
     },
   },
 }
