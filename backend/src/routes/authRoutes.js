@@ -9,13 +9,17 @@ const {
   resetPassword,
 } = require("../controllers/authController");
 const { protect } = require("../middlewares/authMiddleware");
-const { authLimiter } = require("../middlewares/rateLimiter");
+const { 
+  loginLimiter, 
+  registerLimiter, 
+  passwordResetLimiter 
+} = require("../middlewares/rateLimiter");
 
 const router = express.Router();
 
 router.post(
   "/register",
-  authLimiter,
+  registerLimiter,
   [
     check("name", "Nama wajib diisi").notEmpty(),
     check("email", "Silakan sertakan email yang valid").isEmail(),
@@ -28,7 +32,7 @@ router.post(
 
 router.post(
   "/login",
-  authLimiter,
+  loginLimiter,
   [
     check("email", "Silakan sertakan email yang valid").isEmail(),
     check("password", "Kata sandi wajib diisi").notEmpty(),
@@ -40,7 +44,7 @@ router.get("/profile", protect, getUserProfile);
 
 router.post(
   "/register-admin",
-  authLimiter,
+  registerLimiter,
   [
     check("name", "Nama wajib diisi").notEmpty(),
     check("email", "Silakan sertakan email yang valid").isEmail(),
@@ -54,14 +58,14 @@ router.post(
 
 router.post(
   "/forgot-password",
-  authLimiter,
+  passwordResetLimiter,
   [check("email", "Silakan sertakan email yang valid").isEmail()],
   forgotPassword
 );
 
 router.put(
   "/reset-password/:resetToken",
-  authLimiter,
+  passwordResetLimiter,
   [
     check("password", "Kata sandi harus minimal 8 karakter").isLength({
       min: 8,
