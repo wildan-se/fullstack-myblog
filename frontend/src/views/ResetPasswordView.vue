@@ -1,9 +1,10 @@
 <template>
   <div class="flex items-center justify-center min-h-[calc(100vh-250px)] p-4">
     <div class="w-full max-w-md p-8 bg-white border border-gray-200 shadow-2xl md:p-10 rounded-xl">
+      
       <div class="mb-6 text-center">
         <div
-          class="inline-flex items-center justify-center w-16 h-16 mb-4 text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"
+          class="inline-flex items-center justify-center w-16 h-16 mb-4 text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,39 +27,37 @@
         </p>
       </div>
 
-      <!-- Success Message -->
       <div
         v-if="successMessage"
-        class="relative px-4 py-3 mb-6 text-green-700 bg-green-100 border border-green-400 rounded"
+        class="relative px-4 py-3 mb-6 text-green-700 bg-green-50 border-l-4 border-green-500 rounded shadow-sm animate-fade-in-up"
         role="alert"
       >
         <div class="flex items-start">
-          <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
               clip-rule="evenodd"
             />
           </svg>
-          <span class="block text-sm sm:inline">{{ successMessage }}</span>
+          <span class="block text-sm font-medium">{{ successMessage }}</span>
         </div>
       </div>
 
-      <!-- Error Message -->
       <div
         v-if="errorMessage"
-        class="relative px-4 py-3 mb-6 text-red-700 bg-red-100 border border-red-400 rounded"
+        class="relative px-4 py-3 mb-6 text-red-700 bg-red-50 border-l-4 border-red-500 rounded shadow-sm animate-fade-in-up"
         role="alert"
       >
         <div class="flex items-start">
-          <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
               clip-rule="evenodd"
             />
           </svg>
-          <span class="block text-sm sm:inline">{{ errorMessage }}</span>
+          <span class="block text-sm font-medium">{{ errorMessage }}</span>
         </div>
       </div>
 
@@ -72,7 +71,7 @@
               :type="showPassword ? 'text' : 'password'"
               id="password"
               v-model="password"
-              class="w-full px-4 py-3 pr-10 text-gray-800 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              class="w-full px-4 py-3 pr-10 text-gray-800 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               placeholder="Minimal 6 karakter"
               required
               minlength="6"
@@ -134,7 +133,7 @@
               :type="showConfirmPassword ? 'text' : 'password'"
               id="confirmPassword"
               v-model="confirmPassword"
-              class="w-full px-4 py-3 pr-10 text-gray-800 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              class="w-full px-4 py-3 pr-10 text-gray-800 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               placeholder="Ketik ulang password"
               required
               minlength="6"
@@ -186,7 +185,6 @@
           </div>
         </div>
 
-        <!-- Password strength indicator -->
         <div v-if="password" class="mb-6">
           <div class="flex items-center justify-between mb-1">
             <span class="text-xs font-semibold text-gray-600">Kekuatan Password:</span>
@@ -216,7 +214,7 @@
         <button
           type="submit"
           :disabled="loading || password !== confirmPassword || password.length < 6"
-          class="w-full px-4 py-3 font-bold text-white transition-colors duration-200 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-md hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:shadow-outline disabled:opacity-70 disabled:cursor-not-allowed"
+          class="w-full px-4 py-3 font-bold text-white transition-all duration-200 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-md hover:from-indigo-700 hover:to-purple-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           <span v-if="loading" class="flex items-center justify-center">
             <svg
@@ -244,16 +242,16 @@
           <span v-else>Reset Password</span>
         </button>
 
-        <p v-if="password !== confirmPassword && confirmPassword" class="mt-2 text-sm text-red-600">
+        <p v-if="password !== confirmPassword && confirmPassword" class="mt-2 text-sm text-red-600 text-center">
           Password tidak cocok
         </p>
       </form>
 
-      <div v-else class="text-center">
-        <p class="mb-4 text-gray-600">Password Anda telah berhasil direset!</p>
+      <div v-else class="text-center pt-4">
+        <p class="mb-6 text-gray-600">Password Anda telah berhasil direset! Silakan login kembali.</p>
         <router-link
           to="/login"
-          class="inline-block px-6 py-3 font-semibold text-white transition-colors duration-200 bg-indigo-600 rounded-lg hover:bg-indigo-700"
+          class="inline-block px-6 py-3 font-semibold text-white transition-all duration-200 bg-indigo-600 rounded-lg shadow hover:bg-indigo-700 hover:shadow-lg transform hover:-translate-y-0.5"
         >
           Login Sekarang
         </router-link>
@@ -303,6 +301,7 @@ export default {
       this.successMessage = ''
 
       try {
+        // Gunakan ENV variable untuk URL API agar dinamis (Localhost vs Production)
         const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
         const token = this.$route.params.token
 
@@ -343,5 +342,20 @@ export default {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
 }
 </style>
