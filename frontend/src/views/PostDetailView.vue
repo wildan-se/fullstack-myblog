@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-4 py-8 mx-auto post-detail">
+  <div class="container px-4 py-6 mx-auto post-detail sm:py-8 max-w-5xl">
     <div v-if="postsLoading" class="py-12 text-xl text-center text-gray-600">
       <p>Memuat postingan...</p>
       <div
@@ -7,8 +7,8 @@
       ></div>
     </div>
 
-    <div v-else-if="postsError" class="py-12 text-xl text-center text-red-600">
-      <p>Terjadi kesalahan saat memuat postingan: {{ postsError }}</p>
+    <div v-else-if="postsError" class="py-12 text-center text-red-600">
+      <p class="text-lg sm:text-xl">Terjadi kesalahan saat memuat postingan: {{ postsError }}</p>
       <router-link to="/" class="inline-block mt-4 text-indigo-600 hover:underline"
         >Kembali ke Beranda</router-link
       >
@@ -16,9 +16,10 @@
 
     <div
       v-else-if="postDetail"
-      class="p-8 bg-white border border-gray-200 shadow-lg rounded-xl lg:p-12"
+      class="p-4 bg-white border border-gray-200 shadow-lg sm:p-6 lg:p-12 rounded-xl"
     >
-      <div class="w-full mb-8 overflow-hidden bg-gray-200 rounded-lg h-96">
+      <!-- Image -->
+      <div class="w-full mb-6 overflow-hidden bg-gray-200 rounded-lg h-48 sm:h-64 lg:h-96 sm:mb-8">
         <img
           :src="postDetail.image"
           :alt="postDetail.title"
@@ -27,8 +28,9 @@
         />
       </div>
 
-      <div class="flex items-center justify-between mb-4 text-sm text-gray-600">
-        <p>
+      <!-- Meta Info - Responsive Stack -->
+      <div class="flex flex-col gap-3 mb-4 text-sm text-gray-600 sm:flex-row sm:items-center sm:justify-between sm:mb-4">
+        <p class="flex-1">
           Oleh
           <span class="font-semibold text-indigo-700">{{
             postDetail.author?.name || 'Unknown'
@@ -46,21 +48,23 @@
         </p>
         <span
           v-if="postDetail.category"
-          class="inline-block px-3 py-1 text-sm font-semibold text-indigo-800 bg-indigo-100 rounded-full"
+          class="inline-block px-3 py-1 text-xs font-semibold text-indigo-800 bg-indigo-100 rounded-full sm:text-sm w-fit"
           >{{ postDetail.category?.name || 'Uncategorized' }}</span
         >
       </div>
 
-      <h1 class="mb-6 text-5xl font-extrabold leading-tight text-gray-900">
+      <!-- Title - Responsive Size -->
+      <h1 class="mb-4 text-2xl font-extrabold leading-tight text-gray-900 break-words sm:text-3xl lg:text-5xl sm:mb-6">
         {{ postDetail.title }}
       </h1>
 
-      <!-- Post Statistics & Like Button -->
-      <div class="flex items-center justify-between p-4 mb-8 bg-gray-50 rounded-lg border border-gray-200">
-        <div class="flex items-center gap-6 text-sm text-gray-600">
+      <!-- Post Statistics & Like Button - Responsive Layout -->
+      <div class="flex flex-col gap-4 p-4 mb-6 border border-gray-200 rounded-lg bg-gray-50 sm:flex-row sm:items-center sm:justify-between sm:mb-8">
+        <!-- Stats - Stack on mobile, row on desktop -->
+        <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 sm:gap-6 sm:text-sm">
           <!-- Views -->
           <span class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-blue-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
@@ -69,7 +73,7 @@
 
           <!-- Comments -->
           <span class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-green-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
             </svg>
             <span class="font-medium">{{ postComments.length }} comments</span>
@@ -77,25 +81,25 @@
 
           <!-- Likes -->
           <span class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-red-500 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
             <span class="font-medium">{{ postDetail.likes || 0 }} likes</span>
           </span>
         </div>
 
-        <!-- Like Button -->
+        <!-- Like Button - Full width on mobile -->
         <button
           @click="handleLike"
           :disabled="!isAuthenticated || liking"
           :class="[
-            'flex items-center gap-2 px-4 py-2 font-semibold text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors',
+            'flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full sm:w-auto',
             hasLiked ? 'bg-pink-500 hover:bg-pink-600' : 'bg-red-500 hover:bg-red-600'
           ]"
           :title="!isAuthenticated ? 'Login untuk like' : (hasLiked ? 'Unlike post ini' : 'Like post ini')"
         >
           <svg 
-            class="w-5 h-5" 
+            class="w-4 h-4 sm:w-5 sm:h-5" 
             :fill="hasLiked ? 'currentColor' : 'none'" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -107,18 +111,20 @@
         </button>
       </div>
 
+      <!-- Content - With proper word break -->
       <div
-        class="text-lg leading-relaxed prose text-gray-800 max-w-none"
+        class="text-base leading-relaxed prose text-gray-800 break-words sm:text-lg max-w-none"
         v-html="postDetail.content"
       ></div>
 
-      <div class="mt-12 text-center">
+      <!-- Back Button -->
+      <div class="mt-8 text-center sm:mt-12">
         <router-link
           to="/"
-          class="inline-flex items-center px-6 py-3 font-semibold text-white transition-colors duration-200 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700"
+          class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 bg-indigo-600 rounded-lg shadow-md sm:px-6 sm:py-3 sm:text-base hover:bg-indigo-700"
         >
           <svg
-            class="w-5 h-5 mr-2"
+            class="w-4 h-4 mr-2 sm:w-5 sm:h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -135,8 +141,9 @@
         </router-link>
       </div>
 
-      <div class="pt-10 mt-16 border-t border-gray-300">
-        <h2 class="mb-6 text-3xl font-bold text-gray-800">Komentar ({{ postComments.length }})</h2>
+      <!-- Comments Section -->
+      <div class="pt-8 mt-12 border-t border-gray-300 sm:pt-10 sm:mt-16">
+        <h2 class="mb-4 text-2xl font-bold text-gray-800 sm:text-3xl sm:mb-6">Komentar ({{ postComments.length }})</h2>
 
         <div
           v-if="commentsLoading && postComments.length === 0"
@@ -147,22 +154,22 @@
             class="w-8 h-8 mx-auto mt-2 border-b-2 border-indigo-400 rounded-full animate-spin"
           ></div>
         </div>
-        <div v-else-if="commentsError" class="py-4 text-center text-red-600">
+        <div v-else-if="commentsError" class="py-4 text-sm text-center text-red-600 sm:text-base">
           Gagal memuat komentar: {{ commentsError }}
         </div>
-        <div v-else-if="postComments.length === 0" class="p-6 text-gray-700 rounded-lg bg-gray-50">
+        <div v-else-if="postComments.length === 0" class="p-4 text-sm text-gray-700 rounded-lg sm:p-6 bg-gray-50 sm:text-base">
           <p>Belum ada komentar. Jadilah yang pertama berkomentar!</p>
         </div>
-        <div v-else class="space-y-6">
+        <div v-else class="space-y-4 sm:space-y-6">
           <div
             v-for="comment in postComments"
             :key="comment._id"
-            class="p-4 rounded-lg shadow-sm bg-gray-50"
+            class="p-3 rounded-lg shadow-sm sm:p-4 bg-gray-50"
           >
             <template v-if="editingCommentId !== comment._id">
-              <div class="flex items-center mb-2">
-                <p class="font-semibold text-gray-800">{{ comment.user?.name || 'Unknown' }}</p>
-                <span class="ml-auto text-xs text-gray-500">
+              <div class="flex flex-col gap-2 mb-2 sm:flex-row sm:items-center">
+                <p class="text-sm font-semibold text-gray-800 sm:text-base">{{ comment.user?.name || 'Unknown' }}</p>
+                <span class="text-xs text-gray-500 sm:ml-auto">
                   {{
                     new Date(comment.createdAt).toLocaleDateString('id-ID', {
                       day: 'numeric',
@@ -174,7 +181,7 @@
                   }}
                 </span>
               </div>
-              <p class="text-gray-700">{{ comment.content }}</p>
+              <p class="text-sm text-gray-700 break-words sm:text-base">{{ comment.content }}</p>
 
               <div
                 v-if="
@@ -187,13 +194,13 @@
               >
                 <button
                   @click="startEditComment(comment)"
-                  class="text-sm font-medium text-blue-600 hover:text-blue-800"
+                  class="text-xs font-medium text-blue-600 sm:text-sm hover:text-blue-800"
                 >
                   Edit
                 </button>
                 <button
                   @click="confirmDeleteComment(comment._id)"
-                  class="text-sm font-medium text-red-600 hover:text-red-800"
+                  class="text-xs font-medium text-red-600 sm:text-sm hover:text-red-800"
                 >
                   Hapus
                 </button>
@@ -207,46 +214,47 @@
                   :id="`editComment-${comment._id}`"
                   v-model="editingCommentContent"
                   rows="3"
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg shadow-sm sm:px-4 sm:text-base focus:ring-indigo-500 focus:border-indigo-500"
                 ></textarea>
               </div>
-              <div class="flex justify-end space-x-3">
+              <div class="flex justify-end space-x-2 sm:space-x-3">
                 <button
                   @click="cancelEditComment()"
-                  class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 border border-gray-300 rounded-lg hover:bg-gray-100"
+                  class="px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors duration-200 border border-gray-300 rounded-lg sm:px-4 sm:py-2 sm:text-sm hover:bg-gray-100"
                 >
                   Batal
                 </button>
                 <button
                   @click="saveEditedComment(comment._id)"
                   :disabled="!editingCommentContent.trim() || commentsLoading"
-                  class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="px-3 py-1.5 text-xs font-medium text-white bg-indigo-600 rounded-lg shadow-md sm:px-4 sm:py-2 sm:text-sm hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Simpan
                 </button>
               </div>
-              <p v-if="commentsError" class="mt-3 text-sm text-red-600">
+              <p v-if="commentsError" class="mt-2 text-xs text-red-600 sm:text-sm sm:mt-3">
                 Gagal menyimpan perubahan: {{ commentsError }}
               </p>
             </template>
           </div>
         </div>
 
-        <div class="p-6 mt-8 bg-white border border-gray-200 rounded-lg shadow-md">
-          <h3 class="mb-4 text-2xl font-bold text-gray-800">Tambahkan Komentar</h3>
-          <p v-if="!isAuthenticated" class="mb-4 text-sm text-red-500">
+        <!-- Add Comment Form -->
+        <div class="p-4 mt-6 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 sm:mt-8">
+          <h3 class="mb-3 text-xl font-bold text-gray-800 sm:text-2xl sm:mb-4">Tambahkan Komentar</h3>
+          <p v-if="!isAuthenticated" class="mb-3 text-xs text-red-500 sm:text-sm sm:mb-4">
             Anda harus
             <router-link to="/login" class="text-indigo-600 hover:underline">login</router-link>
             untuk berkomentar.
           </p>
           <form @submit.prevent="submitComment">
-            <div class="mb-4">
+            <div class="mb-3 sm:mb-4">
               <label for="commentContent" class="sr-only">Komentar Anda:</label>
               <textarea
                 id="commentContent"
                 v-model="newCommentContent"
                 rows="4"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg shadow-sm sm:px-4 sm:text-base focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Tulis komentar Anda di sini..."
                 :disabled="!isAuthenticated || commentsLoading"
                 required
@@ -256,13 +264,13 @@
               <button
                 type="submit"
                 :disabled="!isAuthenticated || commentsLoading || !newCommentContent.trim()"
-                class="px-6 py-2 font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="w-full px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg shadow-md sm:w-auto sm:px-6 sm:text-base hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span v-if="commentsLoading">Mengirim...</span>
                 <span v-else>Kirim Komentar</span>
               </button>
             </div>
-            <p v-if="commentsError" class="mt-3 text-sm text-red-600">
+            <p v-if="commentsError" class="mt-2 text-xs text-red-600 sm:text-sm sm:mt-3">
               Gagal mengirim komentar: {{ commentsError }}
             </p>
           </form>
